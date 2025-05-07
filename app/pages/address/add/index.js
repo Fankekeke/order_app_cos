@@ -10,6 +10,9 @@ Page({
 		name: '',
 		phone: '',
 		address: '',
+		latitude: '',
+		longitude: '',
+		lnglat: '',
 		defaultAddress: 1
 	},
 	onLoad: function (option) {
@@ -28,11 +31,34 @@ Page({
 			region: e.detail.value
 		})
 	},
+	getLnglatValue() {
+		const _this = this;
+		wx.chooseLocation({
+			success(res) {
+				_this.setData({
+					latitude: res.latitude,
+					longitude: res.longitude,
+					lnglat: res.longitude + ', ' + res.latitude
+				})
+			},
+			fail(e) {
+				console.log(e);
+			}
+		})
+	},
 	add() {
+		if (!this.data.latitude || !this.data.longitude) {
+			wx.showToast({
+				title: '请填写完成',
+				icon: 'none',
+				duration: 2000
+			})
+			return false
+		}
 		wx.getStorage({
 			key: 'userInfo',
 			success: (res) => {
-				let data = { name: this.data.name, phone: this.data.phone, address: this.data.address, defaultAddress: this.data.defaultAddress, userId: res.data.id }
+				let data = { name: this.data.name, phone: this.data.phone, address: this.data.address, defaultAddress: this.data.defaultAddress, userId: res.data.id, longitude: this.data.longitude, latitude: this.data.latitude}
 				this.addressAdd(data)
 			},
 			fail: res => {

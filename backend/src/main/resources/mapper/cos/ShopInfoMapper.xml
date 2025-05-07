@@ -10,6 +10,9 @@
         si.user_id AS userId,
         si.introduction,
         si.tag,
+        si.address,
+        si.longitude,
+        si.latitude,
         ui.user_name AS userName,
         ui.avatar,
         ai.status_date AS statusDate,
@@ -40,6 +43,9 @@
         si.`code`,
         si.introduction,
         si.tag,
+        si.address,
+        si.longitude,
+        si.latitude,
         ui.user_name AS userName,
         ui.avatar
         FROM
@@ -57,6 +63,9 @@
         si.introduction,
         si.tag,
         si.status,
+        si.address,
+        si.longitude,
+        si.latitude,
         si.name AS name,
         si.images
         FROM

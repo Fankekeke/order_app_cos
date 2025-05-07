@@ -9,6 +9,9 @@ Page({
 		name: '',
 		phone: '',
 		address: '',
+		latitude: '',
+		longitude: '',
+		lnglat: '',
 		defaultAddress: 1,
 		addressId: 0,
 	},
@@ -22,7 +25,10 @@ Page({
 				name: r.data.name,
 				address: r.data.address,
 				phone: r.data.phone,
-				defaultAddress: r.data.defaultAddress
+				defaultAddress: r.data.defaultAddress,
+				latitude: r.data.latitude,
+				longitude: r.data.longitude,
+				lnglat: r.data.longitude + ', ' + r.data.latitude
 			})
 		})
 	},
@@ -51,11 +57,34 @@ Page({
 			}
 		})
 	},
+	getLnglatValue() {
+		const _this = this;
+		wx.chooseLocation({
+			success(res) {
+				_this.setData({
+					latitude: res.latitude,
+					longitude: res.longitude,
+					lnglat: res.longitude + ', ' + res.latitude
+				})
+			},
+			fail(e) {
+				console.log(e);
+			}
+		})
+	},
 	edit() {
+		if (!this.data.latitude || !this.data.longitude) {
+			wx.showToast({
+				title: '请填写完成',
+				icon: 'none',
+				duration: 2000
+			})
+			return false
+		}
 		wx.getStorage({
 			key: 'userInfo',
 			success: (res) => {
-				let data = { name: this.data.name, phone: this.data.phone, address: this.data.address, defaultAddress: this.data.defaultAddress, userId: res.data.id, id: this.data.addressId }
+				let data = { name: this.data.name, phone: this.data.phone, address: this.data.address, defaultAddress: this.data.defaultAddress, userId: res.data.id, id: this.data.addressId, longitude: this.data.longitude, latitude: this.data.latitude }
 				this.addressEdit(data)
 			},
 			fail: res => {

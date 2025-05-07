@@ -1,5 +1,6 @@
 package cc.mrbird.febs.cos.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -54,5 +55,6 @@ public class AddressInfo implements Serializable {
      */
     private String createDate;
 
-
+    private BigDecimal longitude;
+    private BigDecimal latitude;
 }

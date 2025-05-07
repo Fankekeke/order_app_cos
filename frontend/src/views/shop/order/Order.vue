@@ -74,6 +74,7 @@
         </template>
         <template slot="operation" slot-scope="text, record">
           <a-icon type="reconciliation" @click="view(record)" title="查 看"></a-icon>
+          <a-icon type="cluster" @click="orderMapOpen(record)" title="地 图" style="margin-left: 15px"></a-icon>
         </template>
       </a-table>
     </div>
@@ -83,6 +84,11 @@
       :orderShow="orderView.visiable"
       :orderData="orderView.data">
     </order-view>
+    <MapView
+      @close="handleorderMapViewClose"
+      :orderShow="orderMapView.visiable"
+      :orderData="orderMapView.data">
+    </MapView>
   </a-card>
 </template>
 
@@ -91,14 +97,19 @@ import RangeDate from '@/components/datetime/RangeDate'
 import {mapState} from 'vuex'
 import moment from 'moment'
 import OrderView from './OrderView'
+import MapView from '../../manage/map/Map.vue'
 moment.locale('zh-cn')
 
 export default {
   name: 'order',
-  components: {OrderView, RangeDate},
+  components: {OrderView, RangeDate, MapView},
   data () {
     return {
       orderView: {
+        visiable: false,
+        data: null
+      },
+      orderMapView: {
         visiable: false,
         data: null
       },
@@ -202,6 +213,13 @@ export default {
     this.fetch()
   },
   methods: {
+    orderMapOpen (row) {
+      this.orderMapView.data = row
+      this.orderMapView.visiable = true
+    },
+    handleorderMapViewClose () {
+      this.orderMapView.visiable = false
+    },
     view (row) {
       this.orderView.data = row
       this.orderView.visiable = true

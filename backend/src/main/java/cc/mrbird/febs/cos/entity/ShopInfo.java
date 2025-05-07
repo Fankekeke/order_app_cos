@@ -1,6 +1,7 @@
 package cc.mrbird.febs.cos.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -64,6 +65,10 @@ ShopInfo implements Serializable {
      * 状态（0.未审核 1.已审核）
      */
     private String status;
+    private String address;
+
+    private BigDecimal longitude;
+    private BigDecimal latitude;
 
     /**
      * 头像

@@ -9,6 +9,9 @@
         ai.address,
         ai.name,
         ai.phone,
+        ai.longitude,
+        ai.longitude,
+        ai.latitude,
         ai.default_address AS defaultDddress,
         ai.create_date AS createDate,
         ui.user_name AS userName

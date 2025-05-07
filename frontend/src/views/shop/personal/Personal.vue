@@ -1,6 +1,6 @@
 <template>
   <a-row :gutter="8" style="width: 100%">
-    <a-col :span="6">
+    <a-col :span="8">
       <div style="background:#ECECEC; padding:30px;margin-top: 30px">
         <a-card :bordered="false">
           <b style="font-size: 15px;font-family: SimHei">店铺信息 -
@@ -32,6 +32,33 @@
                   <a-input v-decorator="[
                   'tag',
                   { rules: [{ required: true, message: '请输入标签!' }] }
+                  ]"/>
+                </a-form-item>
+              </a-col>
+              <a-col :span="12">
+                <a-form-item label='店铺地址'>
+                  <a-input-search
+                    v-decorator="[
+                    'address'
+                    ]"
+                    enter-button="选择"
+                    @search="showChildrenDrawer"
+                  />
+                </a-form-item>
+              </a-col>
+              <a-col :span="12">
+                <a-form-item label='经度' v-bind="formItemLayout">
+                  <a-input v-decorator="[
+                  'longitude',
+                  { rules: [{ required: true, message: '请输入经度!' }] }
+                  ]"/>
+                </a-form-item>
+              </a-col>
+              <a-col :span="12">
+                <a-form-item label='纬度' v-bind="formItemLayout">
+                  <a-input v-decorator="[
+                  'latitude',
+                  { rules: [{ required: true, message: '请输入纬度!' }] }
                   ]"/>
                 </a-form-item>
               </a-col>
@@ -76,7 +103,7 @@
         </a-card>
       </div>
     </a-col>
-    <a-col :span="18">
+    <a-col :span="16">
       <div style="background:#ECECEC; padding:30px;margin-top: 30px">
         <a-card :bordered="false">
           <a-spin :spinning="dataLoading">
@@ -97,6 +124,7 @@
       @success="handlecommodityAddSuccess"
       :commodityAddVisiable="commodityAdd.visiable">
     </auditAdd>
+    <drawerMap :childrenDrawerShow="childrenDrawer" @handlerClosed="handlerClosed"></drawerMap>
   </a-row>
 </template>
 
@@ -104,6 +132,8 @@
 import {mapState} from 'vuex'
 import moment from 'moment'
 import AuditAdd from './AuditAdd.vue'
+import baiduMap from '@/utils/map/baiduMap'
+import drawerMap from '@/utils/map/searchmap/drawerMap'
 moment.locale('zh-cn')
 const formItemLayout = {
   labelCol: { span: 24 },
@@ -124,7 +154,7 @@ export default {
       currentUser: state => state.account.user
     })
   },
-  components: {AuditAdd},
+  components: {AuditAdd, drawerMap},
   data () {
     return {
       commodityAdd: {
@@ -140,13 +170,49 @@ export default {
       courseInfo: [],
       dataLoading: false,
       classList: [],
-      shopInfo: null
+      shopInfo: null,
+      localPoint: {},
+      stayAddress: '',
+      local: '',
+      localData: [],
+      childrenDrawer: false
     }
   },
   mounted () {
     this.dataInit()
   },
   methods: {
+    handlerClosed (localPoint) {
+      this.childrenDrawer = false
+      if (localPoint !== null && localPoint !== undefined) {
+        this.localPoint = localPoint
+        let address = baiduMap.getAddress(localPoint)
+        address.getLocation(localPoint, (rs) => {
+          if (rs != null) {
+            if (rs.address !== undefined && rs.address.length !== 0) {
+              this.stayAddress = rs.address
+            }
+            if (rs.surroundingPois !== undefined) {
+              if (rs.surroundingPois.address !== undefined && rs.surroundingPois.address.length !== 0) {
+                this.stayAddress = rs.surroundingPois.address
+              }
+            }
+            this.form.getFieldDecorator('address')
+            let obj = {}
+            obj['address'] = this.stayAddress
+            obj['longitude'] = localPoint.lng
+            obj['latitude'] = localPoint.lat
+            this.form.setFieldsValue(obj)
+          }
+        })
+      }
+    },
+    showChildrenDrawer () {
+      this.childrenDrawer = true
+    },
+    onChildrenDrawerClose () {
+      this.childrenDrawer = false
+    },
     moment,
     add () {
       this.commodityAdd.visiable = true
@@ -202,7 +268,7 @@ export default {
     },
     setFormValues ({...user}) {
       this.rowId = user.id
-      let fields = ['introduction', 'code', 'introduction', 'tag', 'name', 'images']
+      let fields = ['introduction', 'code', 'introduction', 'tag', 'name', 'images', 'longitude', 'latitude', 'address']
       let obj = {}
       Object.keys(user).forEach((key) => {
         if (key === 'images' && user[key] !== null) {

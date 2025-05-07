@@ -3,10 +3,7 @@ package cc.mrbird.febs.cos.service.impl;
 import cc.mrbird.febs.cos.dao.ShopInfoMapper;
 import cc.mrbird.febs.cos.entity.*;
 import cc.mrbird.febs.cos.dao.OrderInfoMapper;
-import cc.mrbird.febs.cos.service.IBulletinInfoService;
-import cc.mrbird.febs.cos.service.ICommodityInfoService;
-import cc.mrbird.febs.cos.service.IOrderInfoService;
-import cc.mrbird.febs.cos.service.IUserInfoService;
+import cc.mrbird.febs.cos.service.*;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.NumberUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -36,6 +33,8 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     private final ShopInfoMapper shopInfoMapper;
 
     private final IBulletinInfoService bulletinInfoService;
+
+    private final IAddressInfoService addressInfoService;
 
     /**
      * 分页查询订单信息
@@ -173,6 +172,10 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         // 商品信息
         CommodityInfo commodityInfo = commodityInfoService.getById(orderInfo.getCommodityId());
         result.put("commodity", commodityInfo);
+
+        // 收货地址
+        AddressInfo addressInfo = addressInfoService.getById(orderInfo.getAddressId());
+        result.put("address", addressInfo);
 
         // 商铺信息
         ShopInfo shopInfo = shopInfoMapper.selectById(commodityInfo.getShopId());
