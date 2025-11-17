@@ -439,6 +439,11 @@ public class WebController {
         orderDetail.setOrderStatus("0");
         orderDetail.setCreateDate(DateUtil.formatDateTime(new Date()));
         orderDetail.setAddressId(orderInfo.getAddressId());
+
+        CommodityInfo commodityInfo = commodityInfoService.getById(orderInfo.getCommodityId());
+        if (commodityInfo != null) {
+            orderInfo.setShopId(commodityInfo.getShopId());
+        }
         orderDetailService.save(orderDetail);
 
         return R.ok(orderInfoService.save(orderInfo));
@@ -502,7 +507,7 @@ public class WebController {
             CommodityInfo commodityInfo = commodityInfoService.getById(orderInfo.getCommodityId());
             if (commodityInfo != null) {
                 // 商家ID
-                orderInfo.setShopId(shopInfoService.getOne(Wrappers.<ShopInfo>lambdaQuery().eq(ShopInfo::getSysUserId, orderInfo.getUserId())).getId());
+                orderInfo.setShopId(commodityInfo.getShopId());
             }
         }
 

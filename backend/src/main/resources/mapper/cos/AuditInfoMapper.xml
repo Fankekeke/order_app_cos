@@ -17,8 +17,8 @@
         ui.avatar
         FROM
         audit_info ai
-        LEFT JOIN user_info ui ON ( ui.id = ai.user_id )
-        LEFT JOIN shop_info si ON (si.user_id = ui.id)
+       LEFT JOIN shop_info si ON ( si.id = ai.user_id ) 
+	LEFT JOIN user_info ui ON ( ui.id = si.user_id )
         WHERE
         1 = 1
         <if test="auditInfo.auditStatus != null and auditInfo.auditStatus != ''">

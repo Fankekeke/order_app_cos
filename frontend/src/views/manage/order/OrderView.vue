@@ -66,7 +66,7 @@
           <span style="font-size: 13px;color: #aaaaaa">
             <a-popover>
               <template slot="content">
-                <a-avatar shape="square" size={132} icon="user" :src="'http://127.0.0.1:9527/imagesWeb/' + orderData.shopAvatar" />
+                <a-avatar shape="square" size={132} :src="'http://127.0.0.1:9527/imagesWeb/' + orderData.shopAvatar" icon="user" />
               </template>
               {{ orderData.shopName }}的小店
             </a-popover>
