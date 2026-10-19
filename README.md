@@ -1,17 +1,17 @@
-### 基于SpringBoot + Vue的订餐小程序.
+![](https://img.shields.io/badge/License-MIT-blue.svg)
 
-基于Springboot与Vue的微信订餐、餐厅点餐系统、外卖小程序、餐厅点餐系统源码、小程序点餐系统
+![](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
 
-###### 管理员：
-收货地址 、商铺审核 、公告信息 、餐品管理 、用户评价 、消息管理 、订单管理 、贴子管理 、商铺管理 、用户管理 、餐品类型 、数据统计。
+![](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-###### 用户：
-小程序账户注册登录、个人信息、收货地址管理、查看公告、搜索菜品、我的订单、贴子管理、在线点餐、加入购物车、商家在线沟通。
+# 基于 SpringBoot + Vue  的订餐小程序
 
-###### 商家：
-商铺注册、密码修改、我的餐品 、商铺订单 、订单评价 、消息回复 、商铺审核 、用户沟通。
+外卖点餐 · 多商家入驻 · 在线沟通 · 社区论坛 | 面向餐饮外卖、商家运营与用户互动的微信小程序平台
+
+本项目是一套基于 **Spring Boot + Vue + 微信小程序** 的订餐系统，采用前后端分离架构，覆盖 **管理员、商家、用户** 三类核心角色。系统围绕"商家入驻 → 菜品展示 → 在线点餐 → 购物车结算 → 订单配送 → 评价互动 → 社区论坛 → 数据统计"的完整业务闭环设计，打通餐饮外卖全流程，实现便捷点餐与高效运营。
 
 #### 安装环境
+️**注意**：请确保您的开发环境已安装以下依赖。
 
 JAVA 环境 
 
@@ -19,24 +19,151 @@ Node.js环境 [https://nodejs.org/en/] 选择14.17
 
 Yarn 打开cmd， 输入npm install -g yarn !!!必须安装完毕nodejs
 
-Mysql 数据库 [https://blog.csdn.net/qq_40303031/article/details/88935262] 一定要把账户和密码记住
+Mysql 数据库 一定要把账户和密码记住
 
 redis
 
-Idea 编译器 [https://blog.csdn.net/weixin_44505194/article/details/104452880]
+Idea 编译器
 
-WebStorm OR VScode 编译器 [https://www.jianshu.com/p/d63b5bae9dff]
+WebStorm OR VScode 编译器
 
 #### 采用技术及功能
 
 后端：SpringBoot、MybatisPlus、MySQL、Redis、
 前端：Vue、Apex、Antd、Axios
 
-平台前端：vue(框架) + vuex(全局缓存) + rue-router(路由) + axios(请求插件) + apex(图表)  + antd-ui(ui组件)
+平台前端：vue(框架) + vuex(全局缓存) + rue-router(路由) + axios(请求插件) + apex(图表)  + antd-ui(ui组件) + 百度地图 API
 
 平台后台：springboot(框架) + redis(缓存中间件) + shiro(权限中间件) + mybatisplus(orm) + restful风格接口 + mysql(数据库)
 
 开发环境：windows10 or windows7 ， vscode or webstorm ， idea + lambok
+
+---
+
+## 核心特性
+
+- **多商家入驻体系**：支持商家自主注册、资质审核、店铺信息管理，平台统一管控商家资质与运营规范，形成"平台统筹 + 商家自营"的双层运营模式。
+- **在线点餐与购物车**：用户可按分类浏览菜品、搜索菜品、查看详情，支持加入购物车批量下单，实时计算订单金额，下单流程简洁高效。
+- **商家在线沟通**：用户下单前后可与商家实时沟通（口味备注、配送时间协商等），商家后台在线回复消息，提升服务体验。
+- **社区论坛**：用户可发布美食分享帖、探店心得，评论互动，管理员审核帖子内容，构建美食爱好者交流社区。
+- **多维数据统计**：管理员与商家均可查看销售数据、订单趋势、热门菜品排行等统计报表，支持图表可视化。
+---
+
+## 适用场景
+
+- 校园/园区外卖点餐平台
+- 多商家餐饮集合外卖平台
+- 餐饮品牌线上点餐系统
+- 美食社区 + 外卖商城
+- 计算机类毕业设计/课程设计项目
+---
+
+## 功能模块概览
+
+## 管理员端
+
+管理员为平台运营中枢，负责全局管控：
+
+### 基础管理
+
+- **用户管理**：管理注册用户，包括用户ID、昵称、手机号、注册时间、账户状态，支持账户冻结/解冻。
+- **用户收货地址**：查看用户收货地址列表（省市区、详细地址、联系人、手机号），支持异常地址清理。
+- **公告管理**：发布平台公告，包括公告标题、内容、类型（活动通知/系统维护/新商家上线）、发布时间、置顶状态。
+
+### 商家与菜品
+
+- **商铺管理**：管理全平台商家店铺，包括店铺名称、联系人、联系电话、店铺地址、营业时间、店铺状态，支持店铺冻结/解冻。
+- **商铺审核**：审核商家入驻申请，核验营业执照、食品经营许可证等资质，审核通过后方可营业。
+- **餐品管理**：管理全平台菜品，包括菜品名称、所属商家、分类、价格、库存、规格、图片、上下架状态，支持批量操作。
+- **餐品类型**：管理菜品分类体系，支持多级分类（如快餐/饮品/甜点/正餐），设置分类排序与状态。
+
+### 订单与评价
+
+- **订单管理**：查看全平台订单，包括订单号、用户、商家、菜品明细、订单金额、支付状态、配送状态、订单状态（待支付/已支付/待接单/配送中/已完成/已取消/已退款），支持订单干预与退款处理。
+- **用户评价**：查看用户对订单/菜品的评价，包括评分、评价内容、评价图片，支持屏蔽违规评价。
+
+### 社区与消息
+
+- **贴子管理**：审核用户发布的论坛帖子，包括标题、内容、图片，支持通过/拒绝操作，维护社区内容质量。
+- **消息管理**：管理平台消息通知，包括系统公告推送、订单状态变更通知、商家回复通知等。
+
+### 数据统计
+
+- **数据统计**：综合数据看板，展示平台总销售额、订单量、用户数、商家数、热门菜品排行、订单趋势等，支持按时间段筛选与图表可视化。
+
+## 商家端
+
+商家通过 Web 后台管理店铺运营：
+
+### 店铺管理
+
+- **商铺注册**：商家提交入驻申请，填写店铺名称、联系人、联系电话、营业执照、店铺地址等信息，等待管理员审核。
+- **密码修改**：商家可修改登录密码，保障账户安全。
+- **商铺审核**：查看自身店铺审核状态，审核不通过可查看原因并重新提交。
+- **商铺信息管理**：维护店铺基本信息，包括店铺名称、Logo、简介、联系电话、营业时间、配送范围、起送价、配送费。
+
+### 菜品与订单
+
+- **我的餐品**：管理本店菜品，包括菜品上架/下架、价格调整、库存管理、规格设置、图片上传，支持菜品详情富文本编辑。
+- **商铺订单**：查看本店订单，包括待接单、配送中、已完成订单，支持接单、拒单、标记配送中/已完成等操作。
+- **订单评价**：查看用户对本店订单的评价，支持回复评价，维护店铺口碑。
+
+### 沟通与消息
+
+- **消息回复**：查看用户发送的沟通消息，在线回复用户咨询（口味偏好、配送时间等）。
+- **用户沟通**：主动与下单用户沟通订单相关问题，提升服务体验。
+
+### 数据统计
+
+- **数据统计**：店铺数据看板，展示本店销售额、订单量、热门菜品排行、用户评价统计，支持按时间段筛选。
+
+## 用户端（微信小程序）
+
+用户通过微信小程序进行点餐与社区互动：
+
+### 账户与个人
+
+- **小程序账户注册登录**：支持微信授权一键登录，自动获取用户昵称与头像，首次登录自动注册。
+- **个人信息**：维护个人基本信息，包括昵称、头像、手机号绑定。
+- **收货地址管理**：管理个人收货地址，支持新增、编辑、删除、设置默认地址，支持微信定位获取当前位置。
+
+### 点餐与下单
+
+- **搜索菜品**：支持按菜品名称、商家名称关键词搜索，快速找到目标菜品。
+- **在线点餐**：按分类浏览菜品，查看菜品详情（图片、价格、销量、描述），选择规格与数量，加入购物车或立即购买。
+- **加入购物车**：将心仪菜品加入购物车，支持修改数量、删除菜品，结算时自动计算总价。
+- **我的订单**：查看个人订单列表，按状态分类（待支付/待接单/配送中/已完成/已取消），支持取消未支付订单、确认收货、申请退款。
+
+### 互动与社区
+
+- **贴子管理**：发布美食分享帖、探店心得，管理个人帖子（编辑、删除），浏览论坛帖子并发表评论。
+- **商家在线沟通**：在订单详情页或商家主页与商家实时沟通，发送文字消息，查看历史对话记录。
+- **查看公告**：浏览平台发布的公告信息，了解活动通知、系统维护等信息。
+
+---
+
+## 项目结构
+
+```text
+pharmacy-dispensing-system/
+├── backend/            # 后端 API 服务
+│   ├── src/
+│   │   ├── controllers/  # 控制器
+│   │   ├── models/       # 数据模型
+│   │   ├── routes/       # 路由
+│   │   └── services/     # 业务逻辑
+│   └── package.json
+├── frontend/           # 前端 Web 应用
+│   ├── src/
+│   │   ├── views/      # 页面视图
+│   │   ├── components/ # 公共组件
+│   │   └── store/      # 状态管理
+│   └── package.json
+├── docs/               # 项目文档与 API 接口说明
+├── LICENSE
+└── README.md
+```
+---
 
 
 #### 前台启动方式
@@ -46,30 +173,29 @@ WebStorm OR VScode 编译器 [https://www.jianshu.com/p/d63b5bae9dff]
 #### 默认后台账户密码
 [管理员]
 admin
-1234qwer
+123456
+
+[用户]
+fank
+123456
 
 #### 项目截图
-暂无
+|  |  |
+|---------------------|---------------------|
+| ![](./assets/image%20(1).png) | ![](./assets/image%20(2).png) |
+| ![](./assets/image%20(3).png) | ![](./assets/image%20(4).png) |
+| ![](./assets/image%20(5).png) | ![](./assets/image%20(6).png) |
+| ![](./assets/image%20(7).png) | ![](./assets/image%20(8).png) |
+| ![](./assets/image%20(9).png) | ![](./assets/image%20(10).png) |
 
 |  |  |
 |---------------------|---------------------|
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/449e06b7-4445-4adb-bbd0-ebea9f9f47c4.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/f18cb4e4-801b-498c-8e3a-996eb9d66be8.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/17a6f271-baf2-4212-8c56-2e9bf6688f2c.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/db449a0c-3134-4700-8768-eb61b4a0c089.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/7fc95d62-586d-4583-8395-ea112b8713e4.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/b9d80070-b91c-47ab-bc7b-c9231987c82d.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1eff2ccc-7b1f-44cd-adda-cb87a92527a8.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/b9a1d6f7-a06b-4308-bb47-158d38f12a72.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/5afd9ccc-adbf-4e44-9cfb-007b149e8b61.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/a925698a-f3f3-485a-971a-3415540af581.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/f78c1e0d-992d-4818-a188-452612dd1577.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/ac5de942-d065-4d47-8e15-0395f1cafa61.png) |
-
-|  |  |
-|---------------------|---------------------|
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/064ccba6-95b1-4b2a-b8cc-1beb4f13cf5b.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/6d7037d3-fcb7-434d-b631-19a2a51506ad.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/4943076e-ebd1-4365-a5e1-630694e21ed5.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/6c5ba778-758d-4ebb-91b0-51f2c6317ff4.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/926ef7f3-8436-44d3-a34a-38941820244c.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/c5bf2a96-2ac6-40c5-b19a-3ce10eae52ed.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/57d79f33-7289-4640-80e9-512aed0bdffe.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/c1caa938-061f-4f09-a9f8-ee56045003da.png) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/44f7d226-d086-4ecf-aa1c-45b3bc3ff013.png) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/afd95c0e-0b1f-41a9-96c2-f490debdd132.png) |
-
-
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/work/936e9baf53eb9a217af4f89c616dc19.png) |
+| ![](./assets/app_image%20(1).png) | ![](./assets/app_image%20(2).png) |
+| ![](./assets/app_image%20(3).png) | ![](./assets/app_image%20(4).png) |
+| ![](./assets/app_image%20(5).png) | ![](./assets/app_image%20(6).png) |
+| ![](./assets/app_image%20(7).png) | ![](./assets/app_image%20(8).png) |
+| ![](./assets/app_image%20(9).png) | ![](./assets/app_image%20(10).png) |
+| ![](./assets/app_image%20(11).png) | ![](./assets/app_image%20(12).png) |
 
 #### 演示视频
 
@@ -87,7 +213,10 @@ WeChat: `Storm_Berserker`
 
 > 项目部署调试不好包退！功能逻辑没讲明白包退！
 
+<div align=center><img align="center" src="./assets/product_word.png" alt="fankekeke" /></div>
+
 #### 其它资源
+[2026年-答辩顺利通过-客户评价🀄](https://berserker287.github.io/2026/06/29/2026%E5%B9%B4%E7%AD%94%E8%BE%A9%E9%A1%BA%E5%88%A9%E9%80%9A%E8%BF%87/)
 
 [2025年-答辩顺利通过-客户评价🍜](https://berserker287.github.io/2025/06/18/2025%E5%B9%B4%E7%AD%94%E8%BE%A9%E9%A1%BA%E5%88%A9%E9%80%9A%E8%BF%87/)
 
@@ -107,8 +236,12 @@ WeChat: `Storm_Berserker`
 
 #### 接JAVAWEB毕设，纯原创，价格公道，诚信第一
 
-<p><img align="center" src="https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/%E5%90%88%E4%BD%9C%E7%89%A9%E6%96%99%E6%A0%B7%E5%BC%8F%20(3).png" alt="fankekeke" /></p>
-
 `网站建设、小程序、H5、APP、各种系统 选题+开题报告+任务书+程序定制+安装调试+项目讲解+论文+答辩PPT`
 
 More info: [悲伤的橘子树](https://berserker287.github.io/)
+
+<div align="center"><img align="center" src="./assets/chat_qr_code.png" alt="fankekeke" width=250 /></div>
+
+<p><img align="center" src="./assets/wechat_group.png" alt="fankekeke" /></p>
+
+**感谢查看**
